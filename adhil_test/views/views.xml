@@ -1,0 +1,30 @@
+<odoo>
+  <data>
+  <record id="sale_customisation_by_inherit" model="ir.ui.view">
+    <field name="name">sale.customisation.by.inherit</field>
+    <field name="model">sale.order</field>
+    <field name="inherit_id" ref="sale.view_order_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='l10n_in_gst_treatment']" position="after">
+        <field name="is_check" />
+        <!-- <field name="gender" /> -->
+      </xpath>
+    </field>
+  </record>
+
+  <record id="sale_order_action" model="ir.actions.act_window">
+    <field name="name">saleOrder</field>
+    <field name="res_model">sale.order</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="view_mode">list,form</field>
+    <field name="context">{'default_is_check':True}</field>
+  </record>
+
+  <menuitem 
+    action="sale_order_action" 
+    id="sale_order_sub" 
+    parent="sale.sale_order_menu"
+    name="new menu" 
+    sequence="1"/>
+  </data>
+</odoo>

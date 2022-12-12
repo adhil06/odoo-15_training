@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="0">
+    <record model="ir.module.category" id="module_bi_manager_security">
+            <field name="name">Sales Custom</field>
+            <field name="description">Sales Custom</field>
+            <field name="sequence">18</field>
+    </record>
+
+    <record model="res.groups" id="group_sales_custom_manager">
+        <field name="name">Sales Custom Manager</field>
+        <field name="category_id" ref="module_bi_manager_security"/>
+    </record>
+    
+    <record model="res.groups" id="group_interface">
+        <field name="name">Sales Custom Director</field>
+        <field name="category_id" ref="module_bi_manager_security"/>
+    </record>
+    
+</data>
+</odoo> 

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="car_report_pdf" model="ir.actions.report">
+        <field name="name">car card</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">bi_car_report.report_car_id_card</field>
+        <field name="report_file">bi_car_report.report_car_id_card</field>
+        <field name="paperformat_id" ref="bi_car_report.paperformat_car"/>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

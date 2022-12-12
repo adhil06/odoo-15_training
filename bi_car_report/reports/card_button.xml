@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="car_inherit_button" model="ir.ui.view">
+        <field name="name">car.inherit.button</field>
+        <field name="model">sale.order</field>
+        <!-- inherit id ie:ref id is external id in sale.order -->
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <button name="action_cancel" position="after">
+            	<button name="print_card" string="Car Card" type="object" class="oe_highlight"/>
+            </button>
+        </field>
+    </record>
+
+</odoo>
