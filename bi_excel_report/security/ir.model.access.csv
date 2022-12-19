@@ -1,2 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_bi_sale_custom_bi_sale_custom,bi_sale_custom.bi_sale_custom,model_bi_sale_custom_bi_sale_custom,base.group_user,1,1,1,1
+access_sale_excel_report_wizard_user,bi_excel_report.sale.excel.report.wizard,model_sale_excel_report_wizard,base.group_user,1,1,1,1

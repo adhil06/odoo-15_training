@@ -1,22 +1,18 @@
 # -*- coding: utf-8 -*-
 {
-    "name": "bi_sale_custom",
-
-    "summary": """Sales Module Customization""",
-
+    "name": "Sale Excel Report",
     "description": """
-        Sale Module
+        Excel report for sales
     """,
-
-    "author": "sale module",
+    "author": "Bassam Infotech LLP",
     "website": "https://bassaminfotech.com",
     "support": "sales@bassaminfotech.com",
     "license": "OPL-1",
     "category": "Sales",
-    "version": "0.1",
-    "depends": ["sale","sale_management"],    
+    "version": "15.0.0.1",
+    "depends": ["sale"],    
     "data": [
-        # "security/ir.model.access.csv",
-        "views/excel_report.xml",
+        "security/ir.model.access.csv",
+        "wizard/sale_excel_report_wizard.xml",
     ],
 }
