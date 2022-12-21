@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="bi_sample.list">
+      <field name="name">bi_sample list</field>
+      <field name="model">bi_sample.bi_sample</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="bi_sample.action_window">
+      <field name="name">bi_sample window</field>
+      <field name="res_model">bi_sample.bi_sample</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="bi_sample.action_server">
+      <field name="name">bi_sample server</field>
+      <field name="model_id" ref="model_bi_sample_bi_sample"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="bi_sample" id="bi_sample.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="bi_sample.menu_1" parent="bi_sample.menu_root"/>
+    <menuitem name="Menu 2" id="bi_sample.menu_2" parent="bi_sample.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="bi_sample.menu_1_list" parent="bi_sample.menu_1"
+              action="bi_sample.action_window"/>
+    <menuitem name="Server to list" id="bi_sample" parent="bi_sample.menu_2"
+              action="bi_sample.action_server"/>
+-->
+  </data>
+</odoo>
