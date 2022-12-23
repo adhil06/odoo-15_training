@@ -6,11 +6,17 @@
             <field name="arch" type="xml">
                 <form string="Sale Excel Report Wizard">
                     <group>
-                        <field name="name"/>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="date_from" />  
+                            <field name="date_to" /> 
+                        </group>
                     </group>
                     <footer>
-                        <button string="Submit" name="submit" type="object" class="oe_highlight"/>
-                        <button string="Cancel" special="cancel"/>
+                        <button string="Print Excel" name="action_print_excel_report" type="object" class="btn-primary"/>
+                        <button string="Cancel" special="cancel" class="btn-primary"/>
                     </footer>
                 </form>
             </field>
