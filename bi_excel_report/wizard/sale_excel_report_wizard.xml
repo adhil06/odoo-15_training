@@ -15,7 +15,7 @@
                         </group>
                     </group>
                     <footer>
-                        <button string="Print Excel" name="action_print_excel_report" type="object" class="btn-primary"/>
+                        <button string="Export" name="action_print_excel_report" type="object" class="btn-primary"/>
                         <button string="Cancel" special="cancel" class="btn-primary"/>
                     </footer>
                 </form>
