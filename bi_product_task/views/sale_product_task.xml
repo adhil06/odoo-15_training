@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sale_product_form_view" model="ir.ui.view">
+        <field name="name">sale.product.form.view</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="after">
+                <field name="about" />
+            </xpath>
+            <!-- <xpath expr="//field[@name='order_line']/tree/field[@name='tax_id']" position="after">
+                <field name="date_lauanch" />
+            </xpath> -->
+        </field>
+    </record>
+
+</odoo>
