@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hospital_patient_form_view" model="ir.ui.view">
+        <field name="name">hospital.patient.form.view</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button string="Sent Email" name="action_sent_email" type="Object"></button>
+                </header>
+                <sheet>
+                    <div>
+                        <label for="name" string="Patient Name"></label>
+                        <field name="name"/>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="apointment_date" />
+                            <field name="gender" />
+                            <field name="password" password="True" />
+                            <field name="message" />
+                        </group>
+                        <group>
+                            <field name="blood_group" />
+                            <field name="link" widget="url" readonly="1"/>
+                            <field name="email" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="hospital_patient_tree_view" model="ir.ui.view">
+        <field name="name">hospital.patient.tree.view</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="apointment_date"/>
+                <field name="gender" />
+                <field name="blood_group"/>
+            </tree>
+        </field>
+    </record>
+    <record id="hospital_patient_view_kanban" model="ir.ui.view">
+        <field name="name">hospital_patient.view.kanban</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name" />
+                <field name="apointment_date"/>
+                <field name="blood_group"/>
+                <field name="gender" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-att-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li>
+                                        NAME:<field name="name" />
+                                    </li>
+                                    <li>
+                                        APPOINTMENT DATE:<field name="apointment_date" />
+                                    </li>
+                                    <li>
+                                        BLOOD GROUP:<field name="blood_group" />
+                                    </li>
+                                    <li>
+                                        Gender:<field name="gender" />
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    
+    <record id="hospital_patient_view_search" model="ir.ui.view">
+        <field name="name">hospital.patient.view.search</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="apointment_date" />
+                <field name="blood_group" />
+                <field name="gender" />
+                <filter name="gender_filter" string="Male" domain="[('gender', '=', 'male')]"/>
+                <separator/>
+                <filter name="blood_filter" string="A+ve" domain="[('blood_group', '=', 'A+')]"  />
+
+                <group name="blood_group" string="Group By">
+                    <filter name="blood" string="Blood Group" context="{'group_by': 'blood_group'}" />
+                    <filter name="gender" string="Gender" context="{'group_by': 'gender'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="hospital_patient_form_action" model="ir.actions.act_window">
+        <field name="name">Hospital Patient</field>
+        <field name="res_model">hospital.patient</field>
+        <field name="view_mode">tree,kanban,form</field>
+    </record>
+    <menuitem
+        id="hostipal_patient_main_menu"
+        name="Hospital"
+        sequence="2"/>
+    <menuitem
+        id="hostipal_patient_sub_menu"
+        name="Patient"
+        parent="hostipal_patient_main_menu"
+        action="hospital_patient_form_action"
+        sequence="1"/>
+</odoo>
