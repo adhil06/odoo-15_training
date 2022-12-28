@@ -7,7 +7,7 @@
         subtitle on modules listing or apps.odoo.com""",
 
     "description": """
-        Long description of module's purpose
+        in this module i have created different views-form,list,kanban and add custom filter,group by. then created a email using code and perform schedular action in a field
     """,
 
     "author": "Bassam Infotech LLP",
@@ -16,9 +16,11 @@
     "license": "OPL-1",
     "category": "Uncategorized",
     "version": "15.0.0.1",
-    "depends": ["base","sale"],
+    "depends": ["base","sale","bi_adhil_report"],
     "data": [
         "security/ir.model.access.csv",
         "views/diff_views.xml",
+        "views/mail_template.xml",
+        "views/schedular_cron.xml"
     ],
 }

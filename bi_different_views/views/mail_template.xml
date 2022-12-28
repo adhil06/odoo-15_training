@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id="email_template_name" model="mail.template">
+    <record id="hospital_patient_email_template" model="mail.template">
         <field name="name">Hospital Mail</field>
         <field name="model_id" ref="bi_different_views.model_hospital_patient"/>
         <field name="auto_delete" eval="True"/>
-        <field name="email_from"></field>
-        <field name="email_to" />
+        <field name="email_from">{{user.email}}</field>
+        <field name="email_to">{{object.email}}</field>
+        <field name="subject">Sample Message {{object.name}}</field>
+        <field name="body_html" type="html">
+            <p>
+                Patient Name <t t-out="object.name"/> <br/>
+                <br/>
+                with blood group <t t-out="object.blood_group"/><br/>
+                <t t-out="object.message"/>
+                Here is your Car Card<br/>
+            </p>
+        </field>
+        <field name="report_template" ref="bi_adhil_report.report_sale"/>
+        <field name="report_name">Sale Card</field>
     </record>
 
 </odoo>

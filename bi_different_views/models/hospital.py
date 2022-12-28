@@ -1,4 +1,4 @@
-from odoo import fields,models
+from odoo import fields,models,api
 
 
 class HospitalPatient(models.Model):
@@ -14,7 +14,20 @@ class HospitalPatient(models.Model):
     password = fields.Char(string="PASSWORD" ,size=10)
     message=fields.Char(string="Message")
     email=fields.Char(string="Email")
+    schedule = fields.Integer(string="auto increment number")
     
-    def action_sent_email(self):
-        if self.email:
-            self.email=self.message
+    def action_sent_gmail(self):
+        self.ensure_one()
+        mail_template=self.env.ref('bi_different_views.hospital_patient_email_template')
+        mail_template.send_mail(self.id,force_send=True)
+         
+    @api.model       
+    def action_cron_job(self):
+        records = self.env['hospital.patient'].search([])
+        for record in records:
+            if record.schedule:
+                record.schedule += 1
+                
+        for record in records:
+            if record.email:
+               self.action_sent_gmail()
