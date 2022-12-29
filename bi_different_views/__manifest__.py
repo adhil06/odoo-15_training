@@ -3,11 +3,10 @@
     "name": "bi_different_views",
 
     "summary": """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.odoo.com""",
+        hospital module """,
 
     "description": """
-        in this module i have created different views-form,list,kanban and add custom filter,group by. then created a email using code and perform schedular action in a field
+        in this module i have created different views-form,list,kanban and add custom filter,group by. then created a email using code and perform schedular action in a field alsco sent mail by suing ir.cron also impletement chatter in the form view.
     """,
 
     "author": "Bassam Infotech LLP",
@@ -16,7 +15,7 @@
     "license": "OPL-1",
     "category": "Uncategorized",
     "version": "15.0.0.1",
-    "depends": ["base","sale","bi_adhil_report"],
+    "depends": ["base","sale","bi_adhil_report","mail"],
     "data": [
         "security/ir.model.access.csv",
         "views/diff_views.xml",

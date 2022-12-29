@@ -8,8 +8,11 @@
             <form>
                 <header>
                     <button string="Sent Email" name="action_sent_gmail" type="object"></button>
+                    <button string="Closed" name="action_show_ribon" type="object" class="oe_highlight"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,done,close"/>
                 </header>
                 <sheet>
+                    <widget name="web_ribbon" title="Closed" bg_color="bg-danger" attrs="{'invisible': [('state', '!=', 'close')]}"/>
                     <div>
                         <label for="name" string="Patient Name"></label>
                         <field name="name"/>
@@ -26,9 +29,14 @@
                             <field name="blood_group" />
                             <field name="link" widget="url" readonly="1"/>
                             <field name="email" />
+                            <field name="gender_two" />
                         </group>
                     </group>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" />
+                    <field name="message_ids"  />
+                </div>
             </form>
         </field>
     </record>
