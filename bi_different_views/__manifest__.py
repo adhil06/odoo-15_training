@@ -15,7 +15,7 @@
     "license": "OPL-1",
     "category": "Uncategorized",
     "version": "15.0.0.1",
-    "depends": ["base","sale","bi_adhil_report","mail"],
+    "depends": ["base","sale","product","bi_adhil_report","mail"],
     "data": [
         "security/ir.model.access.csv",
         "views/diff_views.xml",
