@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="transfer_sequence" model="ir.sequence">
+            <field name="name">Material Transfer Sequence</field>
+            <field name="code">material.transfer</field>
+            <field name="prefix">MT</field>
+            <field name="padding">5</field>
+            <field eval="False" name="company_id"/>
+        </record>
+    
+    </data>
+</odoo>

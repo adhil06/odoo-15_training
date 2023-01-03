@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="material_transfer_view_form" model="ir.ui.view">
+        <field name="name">material_transfer.view.form</field>
+        <field name="model">material.transfer</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_transfer" string="Transfer" type="object" class="oe_highlight"></button>\
+                    <!-- <button name="action_set_to_done" string="Make DOne" type="object" class="oe_highlight"></button> -->
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="transfer_sequence"/>
+                        </h1>
+                    </div>
+                    <group>
+                       <group>
+                           <field name="operation_type_id"/>       
+                           <field name="source_location_id" />
+                           <field name="destination_location_id" />
+                       </group>
+                       <group>
+                           <field name="date" />
+                       </group>
+                    </group>
+                    <notebook>
+                        <page name="transfer_detaials" string="Details">
+                            <field name="material_transfer_lines_ids">
+                                <tree editable="bottom">
+                                    <field name="product_name_id" />
+                                    <field name="quantity" />
+                                    <field name="available_qty" />
+                                    <field name="transfered_qty" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="material_transfer_view_tree" model="ir.ui.view">
+        <field name="name">material_transfer.view.tree</field>
+        <field name="model">material.transfer</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="operation_type_id"/>
+                <field name="source_location_id" />
+                <field name="destination_location_id" />
+                <field name="date" />
+            </tree>
+        </field>
+    </record>
+    <record id="material_transfer_action" model="ir.actions.act_window">
+        <field name="name">Material Transfer Action</field>
+        <field name="res_model">material.transfer</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        id="material_transfer_home_menu"
+        name="Material Transfer"
+        action="material_transfer_action"
+        sequence="2"/>
+
+</odoo>
