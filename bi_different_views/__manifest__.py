@@ -20,6 +20,7 @@
         "security/ir.model.access.csv",
         "views/diff_views.xml",
         "views/mail_template.xml",
-        "views/schedular_cron.xml"
+        "views/schedular_cron.xml",
+        "views/sequencing.xml"
     ],
 }

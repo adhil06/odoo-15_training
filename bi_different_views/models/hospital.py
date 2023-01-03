@@ -1,5 +1,5 @@
 from email.policy import default
-from odoo import fields,models,api
+from odoo import fields,models,api,_
 
 
 class HospitalPatient(models.Model):
@@ -7,6 +7,7 @@ class HospitalPatient(models.Model):
     _inherit="mail.thread"
     _description ="this model is used for hospital management"
     
+    apointment_no = fields.Char(string="APOINTMENT ID",required=True,readonly=True,default=lambda self: _('New'))
     name = fields.Char(required=True)
     apointment_date = fields.Date(string="Apointment Date")
     state = fields.Selection([('draft','Draft'),('in_progress','Progress'),('done','Done'),('close','Closed')],default="draft")
@@ -77,22 +78,42 @@ class HospitalPatient(models.Model):
     @api.onchange('sale_id')
     def onchange_sale_id(self):
         lines = self.sale_id.order_line
+        length_of_line = len(self.mapped('product_details_ids'))
+        # sum_price=sum(lines.mapped('price_unit'))
         for line in lines:
-            self.write({6,0,[()] })
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
-         
-    @api.onchange('sale_id')
-    def onchange_sale_id(self):
-        lines = self.sale_id.order_line
-        for line in lines:
-            self.write({
-                "product_details_ids": [(0,0, {
+            if length_of_line==0:
+            # if sum_price <= 100:
+                self.write({
+                    "product_details_ids": [(0,0, {
                             "product_name_id":line.product_id.id,
                             "qty":line.product_uom_qty,
                             "unit_price":line.price_unit,
                             "sub_total":line.price_subtotal
                         })]
-            })
+                })
+                     
+    #this create method is used for sequencing 
+    @api.model
+    def create(self,vals):
+        res= super(HospitalPatient,self).create(vals)
+        res.apointment_no=self.env['ir.sequence'].next_by_code('hospital.patient') or _('New')
+        return res 
+    
+    
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+         
+    # @api.onchange('sale_id')
+    # def onchange_sale_id(self):
+    #     lines = self.sale_id.order_line
+    #     for line in lines:
+    #         self.write({
+    #             "product_details_ids": [(0,0, {
+    #                         "product_name_id":line.product_id.id,
+    #                         "qty":line.product_uom_qty,
+    #                         "unit_price":line.price_unit,
+    #                         "sub_total":line.price_subtotal
+    #                     })]
+    #         })
         
     #below code is also correct
     # @api.onchange('sale_id')
