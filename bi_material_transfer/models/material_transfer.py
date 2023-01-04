@@ -1,4 +1,6 @@
+from email.policy import default
 from odoo import models,fields,_,api
+from odoo.exceptions import UserError
 
 
 class MaterialTransfer(models.Model):
@@ -11,12 +13,25 @@ class MaterialTransfer(models.Model):
     date = fields.Date(string="Date")
     material_transfer_lines_ids = fields.One2many('material.lines','main_connection_id',string="lines")
     transfer_sequence= fields.Char(string="Sequence No",readonly=True,required=True,default=lambda self: _('New'))
+    record_count = fields.Integer(string="count")
+    stock_picking_id = fields.Many2one('stock.picking') #field inside the buttonbox
+    selection = fields.Selection([('draft','Draft'),('ready','Ready'),('approve','Approve'),('done',('Done'))],required=True, readonly=True, copy=False,default='draft')
+    
+    @api.model
+    def create(self,vals):
+        res= super(MaterialTransfer,self).create(vals)
+        res.transfer_sequence=self.env['ir.sequence'].next_by_code('material.transfer') or _('New')
+        return res
     
     def action_transfer(self):
         lines=self.material_transfer_lines_ids
+        if self.source_location_id==self.destination_location_id:
+            raise UserError("We cannot transfer from same location!")
         for line in lines:
             line.available_qty-=line.quantity
             line.transfered_qty=line.quantity
+            if line.quantity>line.available_qty:
+                raise UserError(f"There is no enogh quantity in the {self.source_location_id.display_name}")      
         transfer = self.env['stock.picking'].create({
         'picking_type_id': self.operation_type_id.id,
         'location_id': self.source_location_id.id,
@@ -34,15 +49,21 @@ class MaterialTransfer(models.Model):
                 'picking_id':transfer.id
             })
             move._action_assign() #button not visible (for product reservation)
+        self.stock_picking_id=transfer.id #this line for button box
         transfer.button_validate()
         
-    @api.model
-    def create(self,vals):
-        res= super(MaterialTransfer,self).create(vals)
-        res.transfer_sequence=self.env['ir.sequence'].next_by_code('material.transfer') or _('New')
-        return res
-        
-        
+    def action_view_stock_details(self):
+        return {
+                    'type': 'ir.actions.act_window',
+                    'name': 'Picking',
+                    'view_mode': 'form',
+                    'res_model': 'stock.picking',
+                    'res_id': self.stock_picking_id.id
+                }
+    def action_ready(self):
+        self.write({'selection': 'ready'})
+    def action_approve(self):
+        self.write({'selection': 'approve'})
         
         # for line in lines:
         #     transfer['move_ids_without_package'] = [(0,0, {
