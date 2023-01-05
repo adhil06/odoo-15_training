@@ -15,8 +15,7 @@ class MaterialTransfer(models.Model):
     transfer_sequence= fields.Char(string="Sequence No",readonly=True,required=True,default=lambda self: _('New'))
     record_count = fields.Integer(string="count")
     stock_picking_id = fields.Many2one('stock.picking') #field inside the buttonbox
-    selection = fields.Selection([('draft','Draft'),('ready','Ready'),('approve','Approve'),('done',('Done'))],required=True, readonly=True, copy=False,default='draft')
-    
+    state = fields.Selection([('draft','Draft'),('ready','Ready'),('approve','Approve'),('done',('Done'))],required=True, readonly=True, copy=False,default='draft')
     @api.model
     def create(self,vals):
         res= super(MaterialTransfer,self).create(vals)
@@ -51,6 +50,7 @@ class MaterialTransfer(models.Model):
             move._action_assign() #button not visible (for product reservation)
         self.stock_picking_id=transfer.id #this line for button box
         transfer.button_validate()
+        self.write({'state':'done'})
         
     def action_view_stock_details(self):
         return {
@@ -60,10 +60,15 @@ class MaterialTransfer(models.Model):
                     'res_model': 'stock.picking',
                     'res_id': self.stock_picking_id.id
                 }
+        
     def action_ready(self):
-        self.write({'selection': 'ready'})
+        self.write({'state': 'ready'})
+        
     def action_approve(self):
-        self.write({'selection': 'approve'})
+        self.write({'state':'approve'})
+        
+    
+        
         
         # for line in lines:
         #     transfer['move_ids_without_package'] = [(0,0, {

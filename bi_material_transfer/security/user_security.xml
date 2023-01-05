@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="module_heading_category_in_security_one" model="ir.module.category">
+        <field name="name">Material Transfer</field>
+        <field name="sequence">1</field>
+        <field name="visible" eval="0" />
+    </record>
+    <!-- below there are three groups -->
+    <record id="access_material_transfer_button" model="res.groups">
+        <field name="name">first Approvel</field>
+        <field name="category_id" ref="module_heading_category_in_security_one"/>
+        <field name="implied_ids" eval="[(4, ref('bi_material_transfer.access_material_transfer_button_two'))]"/>
+    </record>
+    <record id="access_material_transfer_button_one" model="res.groups">
+        <field name="name">Second Approvel</field>
+        <field name="category_id" ref="module_heading_category_in_security_one"/>
+    </record>
+    <record id="access_material_transfer_button_two" model="res.groups">
+        <field name="name">Third Approvel</field>
+        <field name="category_id" ref="module_heading_category_in_security_one"/>
+    </record>
+</odoo>
