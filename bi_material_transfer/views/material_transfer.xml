@@ -11,16 +11,17 @@
                     <button name="action_ready" string="Ready" type="object" class="oe_highlight" states='draft' groups="bi_material_transfer.access_material_transfer_button"/>
                     <button name="action_approve" string="Approve" type="object" class="oe_highlight" states="ready" groups="bi_material_transfer.access_material_transfer_button_one"/>
                     <button name="action_transfer" string="Transfer" type="object" class="oe_highlight" states="approve" groups="bi_material_transfer.access_material_transfer_button_two"/>
+                    <button name="action_draft" string="Create New" type="object" class="oe_highlight" states="done"/>
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                         <button class="oe_stat_button" type="object" name="action_view_stock_details" counter="counter" icon="fa-exchange">
-                            <field name="stock_picking_id" string="Picking" widget="statinfo"/>
+                            <field name="record_count" string="Picking" widget="statinfo"/>
                         </button>
                     </div>
                     <div class="oe_title">
                         <h1>
-                            <field name="transfer_sequence"/>
+                            <field name="name"/>
                         </h1>
                     </div>
                     <group>

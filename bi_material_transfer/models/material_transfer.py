@@ -12,14 +12,18 @@ class MaterialTransfer(models.Model):
     destination_location_id  = fields.Many2one(comodel_name="stock.location",string="Destination Location",required=True)
     date = fields.Date(string="Date")
     material_transfer_lines_ids = fields.One2many('material.lines','main_connection_id',string="lines")
-    transfer_sequence= fields.Char(string="Sequence No",readonly=True,required=True,default=lambda self: _('New'))
+    name= fields.Char(string="Sequence No",readonly=True,required=True,default=lambda self: _('New'))
     record_count = fields.Integer(string="count")
-    stock_picking_id = fields.Many2one('stock.picking') #field inside the buttonbox
+    stock_picking_ids = fields.Many2one('stock.picking') #field inside the buttonbox
     state = fields.Selection([('draft','Draft'),('ready','Ready'),('approve','Approve'),('done',('Done'))],required=True, readonly=True, copy=False,default='draft')
+    
+    # def get_total_count(self):
+    #     self.record_count = self.env['stock.picking'].search_count([('self.transfer','=','self.stock_picking_id')])
+        
     @api.model
     def create(self,vals):
         res= super(MaterialTransfer,self).create(vals)
-        res.transfer_sequence=self.env['ir.sequence'].next_by_code('material.transfer') or _('New')
+        res.name=self.env['ir.sequence'].next_by_code('material.transfer') or _('New')
         return res
     
     def action_transfer(self):
@@ -35,7 +39,9 @@ class MaterialTransfer(models.Model):
         'picking_type_id': self.operation_type_id.id,
         'location_id': self.source_location_id.id,
         'location_dest_id' : self.destination_location_id.id,
+        'material_transfer_id':self.id, 
         })
+        
         for line in lines:
             move=self.env['stock.move'].create({
                 'product_id':line.product_name_id.id,
@@ -48,17 +54,19 @@ class MaterialTransfer(models.Model):
                 'picking_id':transfer.id
             })
             move._action_assign() #button not visible (for product reservation)
-        self.stock_picking_id=transfer.id #this line for button box
+        self.stock_picking_ids=transfer.id #this line for button box
         transfer.button_validate()
+        self.record_count = self.record_count + 1
         self.write({'state':'done'})
         
     def action_view_stock_details(self):
+        sample_ids = self.env['stock.picking'].search(['id','=',self.id])
         return {
                     'type': 'ir.actions.act_window',
                     'name': 'Picking',
-                    'view_mode': 'form',
+                    'view_mode': 'list,form',
                     'res_model': 'stock.picking',
-                    'res_id': self.stock_picking_id.id
+                    'domain': [('material_transfer_id', '=', self.id)],
                 }
         
     def action_ready(self):
@@ -66,8 +74,9 @@ class MaterialTransfer(models.Model):
         
     def action_approve(self):
         self.write({'state':'approve'})
-        
     
+    def action_draft(self):
+        self.write({'state':'draft'})
         
         
         # for line in lines:

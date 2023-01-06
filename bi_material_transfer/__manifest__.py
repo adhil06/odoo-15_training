@@ -21,6 +21,7 @@
         "security/ir.model.access.csv",
         "views/material_transfer.xml",
         "views/transfer_sequence.xml",
+        "views/inheriting.xml",
         "security/user_security.xml",
     ],
 }
