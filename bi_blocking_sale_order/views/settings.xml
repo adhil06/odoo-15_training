@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sale_order_blocking_view_form" model="ir.ui.view">
+        <field name="name">sale.order.blocking.view.form</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@data-key='sale_management']" position="inside">
+                    <h2>Sale Blocking</h2>
+                    <div class="row mt16 o_settings_container" name="catalog_setting_container">
+                        <div class="col-12 col-lg-6 o_setting_box" id="variant_options">
+                            <div class="o_setting_left_pane">
+                                <span class="o_form_label">Day Count</span>
+                                <div class="row mt16">
+                                    <field name="day_count"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </xpath> 
+        </field>
+    </record>
+
+</odoo>
