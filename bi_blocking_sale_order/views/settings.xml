@@ -11,9 +11,9 @@
                     <div class="row mt16 o_settings_container" name="catalog_setting_container">
                         <div class="col-12 col-lg-6 o_setting_box" id="variant_options">
                             <div class="o_setting_left_pane">
-                                <span class="o_form_label">Day Count</span>
+                                <span class="o_form_label">No of day</span>
                                 <div class="row mt16">
-                                    <field name="day_count"/>
+                                    <field name="block_day_below"/>
                                 </div>
                             </div>
                         </div>

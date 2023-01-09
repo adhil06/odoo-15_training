@@ -20,5 +20,6 @@
     "data": [
         # "security/ir.model.access.csv",
         "views/settings.xml",
+        "views/sale_order_inher.xml"
     ],
 }
