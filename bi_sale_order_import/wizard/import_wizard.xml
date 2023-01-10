@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="wizard_from_import_button_view_form" model="ir.ui.view">
+        <field name="name">wizard.from.import.button.view.form</field>
+        <field name="model">wizard.from.import.button</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="excel_attachment" />
+                            <field name="active_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button string="cancel" class="btn-secondary" special="cancel"/>
+                        <button name="action_import" string="Import" class="btn-primary" type="object"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="wizard_from_import_button_action" model="ir.actions.act_window">
+        <field name="name">Wizard From Button</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">wizard.from.import.button</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="wizard_from_import_button_view_form"/>
+        <field name="target">new</field>
+    </record>
+
+</odoo>
